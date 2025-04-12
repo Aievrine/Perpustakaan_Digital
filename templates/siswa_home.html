@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Siswa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <h2>Selamat datang, siswa!</h2>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('edit_profil') }}">Profil</a></li>
+            <li><a href="{{ url_for('daftar_buku') }}">Daftar Buku</a></li>
+            <li><a href="{{ url_for('peminjaman') }}">Pinjam Buku</a></li>
+            <li><a href="{{ url_for('riwayat_siswa') }}">Riwayat</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

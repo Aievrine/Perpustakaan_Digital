@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riwayat Peminjaman</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Perpustakaan Digital</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename=current_user.foto) if current_user.foto else url_for('static', filename='images/default.png') }}" alt="Foto Profil">
+            <span>{{ current_user.nama }} ({{ current_user.kelas }})</span>
+            <a href="{{ url_for('edit_profil') }}">Edit Profil</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('siswa_home') }}">Beranda</a>
+        <a href="{{ url_for('daftar_buku') }}">Daftar Buku</a>
+        <a href="{{ url_for('riwayat_siswa') }}">Riwayat Peminjaman</a>
+    </nav>
+
+    <main>
+        <h2>Riwayat Peminjaman</h2>
+        
+        <section class="active-borrowings">
+            <h3>Peminjaman Aktif</h3>
+            {% if peminjaman %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Judul Buku</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pinjam in peminjaman %}
+                    <tr>
+                        <td>{{ pinjam.judul }}</td>
+                        <td>{{ pinjam.tanggal_pinjam }}</td>
+                        <td>{{ 'Belum diambil' if pinjam.status_ambil == 'belum' else 'Sudah diambil' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Tidak ada peminjaman aktif.</p>
+            {% endif %}
+        </section>
+
+        <section class="borrowing-history">
+            <h3>Riwayat Peminjaman</h3>
+            {% if riwayat %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Judul Buku</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in riwayat %}
+                    <tr>
+                        <td>{{ item.judul }}</td>
+                        <td>{{ item.tanggal_pinjam }}</td>
+                        <td>{{ item.tanggal_kembali or 'Belum dikembalikan' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Belum ada riwayat peminjaman.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

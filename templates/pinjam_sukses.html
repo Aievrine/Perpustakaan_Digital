@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peminjaman Berhasil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Perpustakaan Digital</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename=current_user.foto) if current_user.foto else url_for('static', filename='images/default.png') }}" alt="Foto Profil">
+            <span>{{ current_user.nama }} ({{ current_user.kelas }})</span>
+            <a href="{{ url_for('edit_profil') }}">Edit Profil</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('siswa_home') }}">Beranda</a>
+        <a href="{{ url_for('daftar_buku') }}">Daftar Buku</a>
+        <a href="{{ url_for('riwayat_siswa') }}">Riwayat Peminjaman</a>
+    </nav>
+
+    <main>
+        <div class="success-message">
+            <h2>Peminjaman Berhasil!</h2>
+            <p>Silakan ambil buku di perpustakaan maksimal 2 hari.</p>
+            <a href="{{ url_for('daftar_buku') }}" class="button">Kembali ke Daftar Buku</a>
+            <a href="{{ url_for('riwayat_siswa') }}" class="button">Lihat Riwayat</a>
+        </div>
+    </main>
+</body>
+</html>

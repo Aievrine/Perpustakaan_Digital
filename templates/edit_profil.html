@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Perpustakaan Digital</h1>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename=current_user.foto) if current_user.foto else url_for('static', filename='images/default.png') }}" alt="Foto Profil">
+            <span>{{ current_user.nama }} ({{ current_user.kelas }})</span>
+            <a href="{{ url_for('edit_profil') }}">Edit Profil</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('siswa_home') }}">Beranda</a>
+        <a href="{{ url_for('daftar_buku') }}">Daftar Buku</a>
+        <a href="{{ url_for('riwayat_siswa') }}">Riwayat Peminjaman</a>
+    </nav>
+
+    <main>
+        <h2>Edit Profil</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" name="nama" value="{{ current_user.nama }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kelas">Kelas:</label>
+                <input type="text" id="kelas" name="kelas" value="{{ current_user.kelas }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat:</label>
+                <textarea id="alamat" name="alamat">{{ current_user.alamat }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="foto">Foto Profil:</label>
+                <input type="file" id="foto" name="foto" accept="image/*">
+                {% if current_user.foto %}
+                <p>Foto saat ini: {{ current_user.foto }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password Baru (kosongkan jika tidak ingin mengubah):</label>
+                <input type="password" id="password" name="password">
+            </div>
+            
+            <button type="submit" class="button">Simpan Perubahan</button>
+            <a href="{{ url_for('siswa_home') }}" class="button cancel">Batal</a>
+        </form>
+    </main>
+</body>
+</html>
